@@ -1,0 +1,19 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">修改分类</h3>
+                    <br><br>
+                    <form action="/admin/type_update/{$data->id}" method="post">	
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">分类名:</label>
+                            <input type="text" name="name" value="{$data['name']}" class="form-control input-sm" placeholder="Enter Your Typename...">
+                        </div>
+                        <br>
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">UPDATE</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta name="renderer" content="webkit">
+	<title>登录.云购物商城</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/home/img/icon/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/home/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/home/css/home.css">
+	<script src="/admin_login/js/jquery.js"></script>
+
+</head>
+<style>
+	#error{
+		position:absolute;
+		margin-top:30px;
+		margin-left:210px;
+		font-size:15px;
+	}
+	#yzm{
+		position:absolute;
+		margin-top:19px;
+		margin-left:154px;
+	}
+</style>
+<body>
+
+<header id="pc-header">
+	<div class="center">
+		<div class="pc-fl-logo">
+			<h1>
+				<a href="index.html"></a>
+			</h1>
+		</div>
+	</div>
+</header>
+<section>
+	<div class="pc-login-bj">
+		<div class="center clearfix">
+			<div class="fl"></div>
+			<div class="fr pc-login-box">
+				<div class="pc-login-title"><h2>用户登录</h2></div>
+				<form action="/home/dologin" method="post">
+					<div class="pc-sign">
+						<div id="error"></div>
+						用户名：
+						<input type="text" id="name" name="name" autocomplete="off" placeholder="请输入您的用户名...">
+					</div>
+					<div class="pc-sign">
+						密码：
+						<input type="password" name="pwd" placeholder="请输入您的密码...">
+					</div>
+					<div class="pc-sign">
+						验证码：
+						<img src="/home/code" id="yzm" onclick="this.src='/home/code?'+Math.random()">
+						<input type="text" name="code" autocomplete="off" placeholder="请输入正确的验证码...">
+					</div>
+					<div class="pc-submit-ss">
+						<input type="submit" value="登录" id="denglu">
+					</div>
+					<div class="pc-reg">
+						<a href="/home/register" class="red">免费注册</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="center">
+		<div class="pc-footer-login">
+			<p>关于我们 招聘信息 联系我们 商家入驻 商家后台 商家社区 ©2017 Yungouwu.com 北京云购物网络有限公司</p>
+			<p style="color:#999">营业执照注册号：990106000129004 | 网络文化经营许可证：北网文（2016）0349-219号 | 增值电信业务经营许可证：京2-20110349 | 安全责任书 | 京公网安备 99010602002329号 </p>
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
+<script>
+	$("#name").blur(function(){
+		// alert(2222)
+		$.ajax({
+			type : 'get',
+			url : '/home/search_name',
+			dataType : 'json',
+			data : { 'name' : $("#name").val() },
+			success : function(data) {
+				let obj = JSON.parse(data);
+				if (obj.status == 400) {
+					$("#error").html('▲用户名不存在 ! !');
+					$("#error").css('color','red');
+					$("#denglu").attr('disabled',true);
+				}
+				if (obj.status == 200) {
+					$("#error").html('☺用户名可用！！');
+					$("#error").css('color','green');
+					$("#denglu").attr('disabled',false);
+				}
+			},
+		});
+	});
+</script>

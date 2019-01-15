@@ -1,0 +1,37 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<style>
+		#miaoshu{
+			background:none;
+			border:1px solid #ddd;
+			font-size:15px;
+		}
+	</style>
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">网站配置修改</h3>
+                    <br>
+                    <form action="/admin/config_update/{$data->id}" method="post" enctype="multipart/form-data">
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">网站名:</label>
+                            <input type="text" name="webname" class="form-control input-sm" value="{$data['webname']}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">关键字:</label>
+                            <input type="text" name="keyword" class="form-control input-sm" value="{$data['keyword']}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">网站LOGO:</label>
+                            <img src="/Webconfig_Image/{$data['pic']}" alt="" width="50">
+                            <input type="file" name="pic" class="form-control input-sm">
+                        </div>
+                        <br>
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">UPDATE</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

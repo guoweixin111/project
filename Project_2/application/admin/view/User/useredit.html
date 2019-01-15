@@ -1,0 +1,26 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">修改用户</h3>
+                    <form action="/admin/user_update/{$data->id}" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">用户名:</label>
+                            <input type="text" name="name" class="form-control input-sm" placeholder="Enter Your name..." value="{$data['name']}">
+                        </div>
+                        <br>	
+						<div>
+                            <label for="exampleInputEmail1">等&nbsp;&nbsp;&nbsp;&nbsp;级:</label>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="level">
+                                <option value="1" {if $data['level'] == 1}selected{/if}>普通用户</option>
+                                <option value="2" {if $data['level'] == 2}selected{/if}>一般用户</option>
+                                <option value="3" {if $data['level'] == 3}selected{/if}>超级用户</option>
+                            </select>
+                        </div>	
+						<br>
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">UPDATE</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

@@ -1,0 +1,110 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<!-- Bordered -->
+				<style>
+					#input_search{
+						width:180px;
+						height:30px;
+						border:1px solid #ddd;
+						background:none;
+						font-size:18px;
+					}
+					#search_btn{
+						margin-top:-8px;
+						font-size:15px;
+					}
+					#search_select{
+						padding-top:5px;
+						background:none;
+						border: 1px solid #ddd;
+						color: #feffff;
+						width:100px;
+						height:30px
+					}
+                    #newadd{
+                        margin-top:-65px;
+                        margin-left:880px;
+                        width:150px;
+                    }
+				</style>
+                <div class="block-area" id="tableBordered">
+                    <h3 class="block-title">用户显示列表</h3>
+                    <form action="/admin/user_jinqi" method="get">
+						<div class="form-group">
+                            <label for="exampleInputEmail1">用户名:</label>
+                            &nbsp;&nbsp;
+                            <input type="text" name="name" placeholder="Enter Your name..." id="input_search">
+                            &nbsp;&nbsp;
+                            <select name="level" id="search_select">
+                                <option value="0">--请选择--</option>
+                                <option value="1">普通用户</option>
+                                <option value="2">一般用户</option>
+                                <option value="3">超级用户</option>
+                            </select>
+ 							<button type="submit" class="btn btn-sm m-t-2" id="search_btn">Search</button>
+                            <button type="reset" class="btn btn-sm m-t-2" id="search_btn">RESET</button>
+                        </div>
+                    </form>
+                    <!-- 回到用户列表的快捷按钮  开始 -->
+                    <form action="/admin/user_list" method="post">
+                        <button type="submit" class="btn btn-sm m-t-2" id="newadd">To User Home Page</button>
+                    </form>
+                    <!-- 回到用户列表的快捷按钮  结束 -->
+                    <br>
+                    <div class="table-responsive overflow">
+                        <table class="table table-bordered tile">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Level</th>
+                                    <th>Status</th>
+                                    <th>Creat_time</th>
+                                    <th>Update_time</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $data as $v}
+                                <tr>
+                                    <td>{$v->id}</td>
+                                    <td>{$v->name}</td>
+                                    <td>
+										{if $v['level'] == 1}
+											<span style="color:white;">普通用户</span>
+										{elseif $v['level'] == 2}
+											<span style="color:#00BFFF;font-size:16px">一般用户</span>
+										{elseif $v['level'] == 3}
+											<i style="color:red;font-size:18px">超级用户</i>
+										{/if}
+                                    </td>
+                                    <td>
+										{if $v['status'] == 1}
+											<strong><i style="color:#20B2AA;font-size:15px">启用</i></strong>
+										{elseif $v['status'] == 0}
+											<strong><i style="color:#FF00FF;font-size:18px">禁用</i></strong>
+										{/if}
+                                    </td>
+                                    <td>{$v->create_time}</td>
+                                    <td>{$v->update_time}</td>
+                                    <td>
+                                    	<a href="/admin/user_edit/{$v->id}"><button class="btn btn-sm m-r-5" style="background-color:#FF6347">修改</button></a>
+                                    	<a href="/admin/user_delete/{$v->id}" onclick="return confirm('您确认要删除吗？')"><button class="btn btn-sm m-r-5" style="background-color:#CD3278">删除</button></a>
+                                    	<a href="/admin/user_pwd/{$v->id}"><button class="btn btn-sm m-r-5" style="background-color:#20B2AA">修改密码</button></a>
+                                    	<a href="/admin/user_recycle/{$v->id}">
+											{if $v['status'] == 1}
+												<button class="btn btn-sm m-r-5" style="background-color:red">禁用</button>
+											{elseif $v['status'] == 0}
+												<button class="btn btn-sm m-r-5" style="background-color:green">启用</button>
+											{/if}
+                                    	</a>
+                                    </td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                        {:$data->render()}
+                    </div>    
+                </div>
+{/block}

@@ -1,0 +1,80 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<style>
+					#input_search{
+						width:180px;
+						height:30px;
+						border:1px solid #ddd;
+						background:none;
+						font-size:18px;
+					}
+					#search_btn{
+						margin-top:-8px;
+						font-size:15px;
+					}
+					#search_select{
+						padding-top:5px;
+						background:none;
+						border: 1px solid #ddd;
+						color: #feffff;
+						width:100px;
+						height:30px
+					}
+					th{
+						text-align:center;vertical-align:middle;
+					}
+					#newadd{
+						margin-top:-65px;
+						margin-left:880px;
+						width:150px;
+					}
+				</style>
+                <div class="block-area" id="tableBordered">
+                    <h3 class="block-title">网站配置回收站</h3>
+                    <br>
+                <!-- 遍历商品开始 -->
+                    <div class="table-responsive overflow">
+                        <table class="table table-bordered tile">
+                            <thead>
+                                <tr>
+                                    <th>ID.</th>
+                                    <th>WebName</th>
+                                    <th>Keyword</th>
+                                    <th>Logo</th>
+                                    <th>Status</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $data as $v}
+                            	<tr style="text-align:center;vertical-align:middle;">
+	                            	<td style="text-align:center;vertical-align:middle;">{$v['id']}</td>
+	                            	<td style="text-align:center;vertical-align:middle;">{$v['webname']}</td>
+	                            	<td style="text-align:center;vertical-align:middle;">{$v['keyword']}</td>
+	                            	<td style="text-align:center;vertical-align:middle;"><img src="/Webconfig_Image/{$v['pic']}" width="50" alt=""></td>
+	                            	<td style="text-align:center;vertical-align:middle;">
+										{if $v['status'] == 1}
+											<span style="color:green">启用</span>
+											{elseif $v['status'] == 2}
+											<span style="color:red">禁用</span>
+										{/if}
+	                            	</td>
+	                            	<td style="text-align:center;vertical-align:middle;">
+										<a href="/admin/config_edit/{$v->id}"><button class="btn btn-sm m-r-5" style="background-color:#FF6347">修改</button></a>
+                                    	<a href="/admin/config_recycle/{$v->id}">
+											{if $v['status'] == 1}
+												<button class="btn btn-sm m-r-5" style="background-color:red">禁用</button>
+											{elseif $v['status'] == 2}
+												<button class="btn btn-sm m-r-5" style="background-color:green">启用</button>
+											{/if}
+                                    	</a>
+	                            	</td>
+                            	</tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>    
+                </div>
+            <!-- 遍历商品结束 -->
+{/block}

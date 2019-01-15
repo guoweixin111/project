@@ -1,0 +1,29 @@
+{extend name="default/index"}
+
+{block name="content"}
+	 <!-- Basic -->
+                <div class="block-area" id="basic">
+                    <h3 class="block-title">修改密码</h3>
+                    <br>
+                    <form action="/admin/user_updatepwd/{$data->id}" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">用户名:</label>
+                            <input type="text" name="name" class="form-control input-sm" value="{$data['name']}" disabled="disabled">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">原密码:</label>
+                            <input type="password" name="oldpwd" class="form-control input-sm" placeholder="Please enter your original password...">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">新密码:</label>
+                            <input type="password" name="pwd" class="form-control input-sm" placeholder="Please enter your new password...">
+                        </div>
+                        <br>	
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">UPDATE</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

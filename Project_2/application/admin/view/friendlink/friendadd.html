@@ -1,0 +1,59 @@
+{extend name="default/index"}
+
+{block name="content"}
+	 <!-- Basic -->
+                <style>
+                    #error{
+                            position:absolute;
+                            margin-top:25px;
+                            margin-left:410px;
+                            font-size:17px;
+                            color:red;
+                        }
+                </style>
+                <div class="block-area" id="basic">
+                    <h3 class="block-title">添加友情链接</h3>
+                    <form action="/admin/friend_save" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div id="error"></div>
+                            <label for="exampleInputEmail1">链接名:</label>
+                            <input type="text" name="linkname" id="linkname" class="form-control input-sm" placeholder="Please enter a link name of less than 8 characters...">
+                        </div>
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Url:</label>
+                            <input type="text" name="url" class="form-control input-sm" placeholder="Enter Your Password...">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">LOGO:</label>
+                            <input type="file" name="logo" class="form-control input-sm">
+                        </div>	
+                        <br>   
+                        <button type="submit" id="denglu" class="btn btn-sm m-t-10">ADD</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+                <script src="/admin_login/js/jquery.js"></script>
+                <script>
+                    $("#linkname").blur(function(){
+                        // alert(2222)
+                        $.ajax({
+                            type : 'get',
+                            url : '/admin/search_friendname',
+                            dataType : 'json',
+                            data : { 'linkname' : $("#linkname").val() },
+                            success : function(data) {
+                                let obj = JSON.parse(data);
+                                if (obj.status == 200) {
+                                    $("#error").html('▲该链接已存在 ! !');
+                                    $("#denglu").attr('disabled',true);
+                                }
+                                if (obj.status == 400) {
+                                    $("#error").html('');
+                                    $("#denglu").attr('disabled',false);
+                                }
+                            },
+                        });
+                    });
+                </script>
+{/block}

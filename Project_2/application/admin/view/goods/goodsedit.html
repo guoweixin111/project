@@ -1,0 +1,54 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<style>
+		#miaoshu{
+			background:none;
+			border:1px solid #ddd;
+			font-size:15px;
+		}
+	</style>
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">修改商品</h3>
+                    <br>
+                    <form action="/admin/goods_update/{$data->id}" method="post" enctype="multipart/form-data"> 
+                        <br>
+                    	<div>
+                            <label for="exampleInputEmail1">父类:</label>
+                                <input type="text" name="name" class="form-control input-sm" value="{$data->type->name}" disabled="disabled">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">商品名:</label>
+                            <input type="text" name="name" class="form-control input-sm" value="{$data['name']}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">价格:</label>
+                            <input type="text" name="price" class="form-control input-sm" value="{$data['price']}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">图片:</label>
+                            <img src="/Product_Image/{$data['pic']}" alt="" width="50">
+                            <input type="file" name="pic" class="form-control input-sm">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="exampleInputEmail1">状态:</label>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="status">
+                                <option value="1" {if $data['status'] == 1}seleced{/if}>新品</option>
+                                <option value="2" {if $data['status'] == 2}seleced{/if}>上架</option>
+                                <option value="3" {if $data['status'] == 3}seleced{/if}>下架</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">描述:</label>
+                            <input type="text" name="content" class="form-control input-sm" value="{$data['content']}">
+                        </div>
+                        <button type="submit" class="btn btn-sm m-t-10">UPDATE</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

@@ -1,0 +1,70 @@
+{extend name="default/index"}
+
+{block name="content"}
+	 <!-- Basic -->
+                <style>
+                    #error{
+                            position:absolute;
+                            margin-top:25px;
+                            margin-left:400px;
+                            font-size:17px;
+                            color:red;
+                        }
+                </style>
+                <div class="block-area" id="basic">
+                    <h3 class="block-title">用户模块</h3>
+                    <form action="/admin/user_save" method="post">
+                        <div class="form-group">
+                            <div id="error"></div>
+                            <label for="exampleInputEmail1">用户名:</label>
+                            <input type="text" name="name" id="name" class="form-control input-sm" placeholder="Please enter a username of less than 10 bits...">
+                        </div>
+                        
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">密码:</label>
+                            <input type="password" name="pwd" class="form-control input-sm" placeholder="Please enter 4-12 password...">
+                        </div>
+
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">确认密码:</label>
+                            <input type="password" name="repwd" class="form-control input-sm" placeholder="Please confirm your password...">
+                        </div>
+                        <br>	
+						<div>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="level">
+                                <option value="1" selected>普通用户</option>
+                                <option value="2">一般用户</option>
+                                <option value="3">超级用户</option>
+                            </select>
+                        </div>	
+
+                        <p>Some Help level texts here...</p>
+                        
+                        <button type="submit" id="denglu" class="btn btn-sm m-t-10">ADD</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+                <script src="/admin_login/js/jquery.js"></script>
+                <script>
+                    $("#name").blur(function(){
+                        // alert(2222)
+                        $.ajax({
+                            type : 'get',
+                            url : '/admin/search_username',
+                            dataType : 'json',
+                            data : { 'name' : $("#name").val() },
+                            success : function(data) {
+                                let obj = JSON.parse(data);
+                                if (obj.status == 200) {
+                                    $("#error").html('▲该名称已存在 ! !');
+                                    $("#denglu").attr('disabled',true);
+                                }
+                                if (obj.status == 400) {
+                                    $("#error").html('');
+                                    $("#denglu").attr('disabled',false);
+                                }
+                            },
+                        });
+                    });
+                </script>
+{/block}

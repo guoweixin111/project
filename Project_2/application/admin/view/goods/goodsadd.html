@@ -1,0 +1,58 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<style>
+		#miaoshu{
+			background:none;
+			border:1px solid #ddd;
+			font-size:15px;
+		}
+	</style>
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">商品添加</h3>
+                    <br>
+                    <form action="/admin/goods_save" method="post" enctype="multipart/form-data">
+                        <br>
+                    	<div>
+                            <label for="exampleInputEmail1">父类:</label>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="type_id">
+                            	{foreach $data as $v}
+                                <option value="{$v->id}">{$v->typename}</option>
+                            	{/foreach}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">商品名:</label>
+                            <input type="text" name="name" class="form-control input-sm" placeholder="Please enter the name of the product within 10 characters...">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">价格:</label>
+                            <input type="text" name="price" class="form-control input-sm" placeholder="Enter Your Goodsprice...">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">图片:</label>
+                            <input type="file" name="pic" class="form-control input-sm">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="exampleInputEmail1">状态:</label>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="status">
+                                <option value="1">新品</option>
+                                <option value="2">上架</option>
+                                <option value="3">下架</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">描述:</label>
+                            <textarea type="text" name="content" id="miaoshu" cols="70" rows="2"></textarea>
+                        </div>
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">ADD</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

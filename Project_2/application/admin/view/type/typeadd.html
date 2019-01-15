@@ -1,0 +1,27 @@
+{extend name="default/index"}
+
+{block name="content"}
+	<div class="block-area" id="basic">
+                    <h3 class="block-title">添加分类</h3>
+                    <br><br>
+                    <form action="/admin/type_save" method="post">
+                    	<div>
+                            <select style="background:none;border: 1px solid #9194a7; color: #feffff;width:570px;height:30px" name="pid">
+                                <option value="0">--作为顶级分类--</option>
+                                {foreach $data as $v}
+                                <option {if $id == $v['id']}selected{/if} value="{$v['id']}">{:$v['typename']}</option>
+                                {/foreach}
+                            </select>
+                        </div>	
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">分类名:</label>
+                            <input type="text" name="name" class="form-control input-sm" placeholder="Please enter a classification name of less than 10 characters...">
+                        </div>
+                        <br>
+                        <p>Some Help level texts here...</p>
+                        <button type="submit" class="btn btn-sm m-t-10">ADD</button>
+                        <button type="reset" class="btn btn-sm m-t-10">RESET</button>
+                    </form>
+                </div>
+{/block}

@@ -1,0 +1,126 @@
+{extend name="default/index"}
+
+{block name="content"}
+    <style>
+                    #input_search{
+                        width:180px;
+                        height:30px;
+                        border:1px solid #ddd;
+                        background:none;
+                        font-size:18px;
+                    }
+                    #search_btn{
+                        margin-top:-8px;
+                        font-size:15px;
+                    }
+                    #search_select{
+                        padding-top:5px;
+                        background:none;
+                        border: 1px solid #ddd;
+                        color: #feffff;
+                        width:100px;
+                        height:30px
+                    }
+                    th{
+                        text-align:center;vertical-align:middle;
+                    }
+                    #newadd{
+                        margin-top:-65px;
+                        margin-left:880px;
+                        width:150px;
+                    }
+                </style>
+                <div class="block-area" id="tableBordered">
+                    <h3 class="block-title">管理员显示列表</h3>
+                <!-- 搜索商品开始 -->
+                    <form action="/admin/admin_list" method="get">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">管理员名:</label>
+                            &nbsp;&nbsp;
+                            <input type="text" name="aname" placeholder="Enter Your name..." id="input_search">
+                            &nbsp;&nbsp;
+                            <select name="level" id="search_select">
+                                <option value="0" selected>--请选择--</option>
+                                <option value="1">普通管理员</option>
+                                <option value="2">一般管理员</option>
+                                <option value="3">超级管理员</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm m-t-2" id="search_btn">Search</button>
+                            <button type="reset" class="btn btn-sm m-t-2" id="search_btn">Reset</button>
+                        </div>
+                    </form>
+                <!-- 搜索商品结束 -->
+                <!-- 添加商品快捷按钮开始 -->
+                    <form action="/admin/admin_add" method="post">
+                        <button type="submit" class="btn btn-sm m-t-2" id="newadd">Added Administrator</button>
+                    </form>
+                <!-- 添加商品快捷按钮结束 -->
+                    <br>
+                <!-- 遍历商品开始 -->
+                    <div class="table-responsive overflow">
+                        <table class="table table-bordered tile">
+                            <thead>
+                                <tr>
+                                    <th>ID.</th>
+                                    <th>Name</th>
+                                    <th>Sex</th>
+                                    <th>Status</th>
+                                    <th>Pic</th>
+                                    <th>Level</th>
+                                    <th>Creat_time</th>
+                                    <th>Update_time</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $data as $v}
+                                <tr style="text-align:center;vertical-align:middle;">
+                                    <td style="text-align:center;vertical-align:middle;">{$v['id']}</td>
+                                    <td style="text-align:center;vertical-align:middle;">{$v['aname']}</td>
+                                    <td style="text-align:center;vertical-align:middle;">
+                                        {if $v['sex'] == 1}
+                                            男
+                                            {elseif $v['sex'] == 2}
+                                            女
+                                        {/if}
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;">
+                                        {if $v['status'] == 1}
+                                            <span style="color:green">启用</span>
+                                            {elseif $v['status'] == 2}
+                                            <span style="color:red">禁用</span>
+                                        {/if}
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;"><img src="/Admin_Image/{$v['pic']}" width="50" alt=""></td>
+                                    <td style="text-align:center;vertical-align:middle;">
+                                        {if $v['level'] == 1}
+                                            普通管理员
+                                            {elseif $v['level'] == 2}
+                                            一般管理员
+                                            {elseif $v['level'] == 3}
+                                            超级管理员
+                                        {/if}
+                                    </td>  
+                                    <td style="text-align:center;vertical-align:middle;">{$v['create_time']}</td>
+                                    <td style="text-align:center;vertical-align:middle;">{$v['update_time']}</td>
+                                    <td style="text-align:center;vertical-align:middle;">
+                                        <a href="/admin/admin_edit/{$v->id}"><button class="btn btn-sm m-r-5" style="background-color:#FF6347">修改</button></a>
+                                        <a href="/admin/admin_delete/{$v->id}" onclick="return confirm('您确认要删除吗？')"><button class="btn btn-sm m-r-5" style="background-color:#CD3278">删除</button></a>
+                                        <a href="/admin/admin_pwd/{$v->id}"><button class="btn btn-sm m-r-5" style="background-color:#20B2AA">修改密码</button></a>
+                                        <a href="/admin/admin_jq/{$v->id}">
+                                            {if $v['status'] == 1}
+                                                <button class="btn btn-sm m-r-5" style="background-color:red">禁用</button>
+                                            {elseif $v['status'] == 2}
+                                                <button class="btn btn-sm m-r-5" style="background-color:green">启用</button>
+                                            {/if}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                        {:$data->render()}
+                    </div>    
+                </div>
+            <!-- 遍历商品结束 -->
+{/block}

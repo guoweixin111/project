@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sign In</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="/admin_login/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="/admin_login/css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="/admin_login/css/morris.css" type="text/css"/>
+<!-- Graph CSS -->
+<link href="/admin_login/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="/admin_login/css/jquery-ui.css"> 
+<!-- jQuery -->
+<script src="/admin_login/js/jquery-2.1.4.min.js"></script>
+<script src="/admin_login/js/jquery.js"></script>
+<!-- //jQuery -->
+<link href='http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<link rel="stylesheet" href="/admin_login/css/icon-font.min.css" type='text/css' />
+<!-- //lined-icons -->
+</head> 
+<style>
+	#error{
+		position:absolute;
+		margin-top:7px;
+		margin-left:580px;
+		color:red;
+		font-size:17px;
+	}
+	.clearfix{
+		position:absolute;
+		margin-top:153px;
+		margin-left:420px;
+	}
+</style>
+<body>
+	<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<h2>Sign In</h2>
+		<form action="/admin/dologin" method="post">
+			<div class="username">
+				<span class="username">Adminname:</span>
+				<div id="error"></div>
+				<input type="text" name="aname" id="name" class="name" autocomplete="off" placeholder="请输入管理员账户">
+				<div class="clearfix"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">Password:</span>
+				<input type="password" name="pwd" class="password" placeholder="请输入密码">
+				<div class="clearfix"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">Code:</span>
+				<input type="text" name="code" class="password" placeholder="请输入正确的验证码" style="margin-right:-100px" autocomplete="off">
+				<div class="clearfix"><img src="/admin/code" onclick="this.src='/admin/code?'+Math.random()"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" id="denglu" value="Sign In">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	</div>
+	</div>
+</body>
+</html>
+<script>
+	$("#name").blur(function(){
+		$.ajax({
+			type : 'get',
+			url : '/admin/search_name',
+			dataType : 'json',
+			data : { 'aname' : $("#name").val() },
+			success : function(data) {
+				let obj = JSON.parse(data);
+				if (obj.status == 400) {
+					$("#error").html('用户名不存在 ! !');
+					$("#denglu").attr('disabled',true);
+				}
+				if (obj.status == 200) {
+					$("#error").html('');
+					$("#denglu").attr('disabled',false);
+				}
+			},
+		});
+	});
+</script>
