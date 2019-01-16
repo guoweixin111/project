@@ -325,105 +325,31 @@
 		<div class="containers">
 			
 			<div>
-			  <div class="pc-nav-title"><h3>服装区</h3></div>
+			  <div class="pc-nav-title"><h3>我的商品</h3></div>
 				<div class="pc-nav-digit clearfix">
 					<ul>
 						
 
-						{foreach $type as $t}
-
-						{if $t['pid'] == 1}
+						{foreach $goods as $g}
+						
+						
 						<li>
 							<div class="digit1">
-								<a href="/home/goodslist">
-								<img src="/home/images/default.jpg" width="150">
+								<a href="/home/goodslist/{$g->id}">
+								<img src="/Product_Image/{$g['pic']}" width="150">
 								</a>
 							</div>
 							<div class="digit2">
-								<a href="#">{$t['name']}</a>
+								<a href="#">{$g['name']}</a>
+								<a href="#" style="color:red">￥:{$g['price']}元</a>
 							</div>
 						</li>
-						{/if}
+						
 						{/foreach}
 					
 					</ul>
 				</div>
 			</div>
-			
-			<!-- <div>
-				<div class="pc-nav-title"><h3>数码区</h3></div>
-				<div class="pc-nav-digit clearfix">
-					<ul>
-						
-
-						{foreach $type as $t}
-
-						{if $t['pid'] == 8}
-						<li>
-							<div class="digit1">
-								<a href="#">
-								<img src="/home/images/shuma.jpg" width="150">
-								</a>
-							</div>
-							<div class="digit2">
-								<a href="#">{$t['name']}</a>
-							</div>
-						</li>
-						{/if}
-						{/foreach}
-					
-					</ul>
-				</div>
-			</div>
-			<div>
-				<div class="pc-nav-title"><h3>食品区</h3></div>
-				<div class="pc-nav-digit clearfix">
-					<ul>
-
-						{foreach $type as $t}
-
-						{if $t['pid'] == 2}
-						<li>
-							<div class="digit1">
-								<a href="#">
-								<img src="/home/images/shipin.jpg" width="150">
-								</a>
-							</div>
-							<div class="digit2">
-								<a href="#">{$t['name']}</a>
-							</div>
-						</li>
-						{/if}
-						{/foreach}
-						
-					</ul>
-				</div>
-			</div>
-			<div>
-				<div class="pc-nav-title"><h3>饰品区</h3></div>
-				<div class="pc-nav-digit clearfix">
-					<ul>
-						
-
-						{foreach $type as $t}
-
-						{if $t['pid'] == 13}
-						<li>
-							<div class="digit1">
-								<a href="#">
-								<img src="/home/images/shechipin.jpg" width="150">
-								</a>
-							</div>
-							<div class="digit2">
-								<a href="#">{$t['name']}</a>
-							</div>
-						</li>
-						{/if}
-						{/foreach}
-					
-					</ul>
-				</div>
-			</div> -->
 
 		</div>
 

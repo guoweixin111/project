@@ -32,8 +32,15 @@
 
 					{if $g['type_id']==$v['id']}
 						<li>
-							<div class="digit1"><a href="#"><img src="images/shangpinxiangqing/X-1.png" width="100%"></a></div>
-							<div class="digit2"><a href="#">{$g->name}</a></div>
+							<div class="digit1">
+								<a href="#">
+								<img src="/Product_Image/{$g['pic']}" width="150">
+								</a>
+							</div>
+							<div class="digit2">
+								<a href="#" style="color:purple">{$g->name}</a>
+								<a href="#" style="color:red">￥:{$g->price}元</a>
+							</div>
 						</li>
 					{/if}
 					{/foreach}

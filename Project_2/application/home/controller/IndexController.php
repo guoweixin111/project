@@ -23,12 +23,7 @@ class IndexController extends Controller
         $type = Type::select();
         $c = new Cattree($type);
         $type = $c ->getTree();
-        // dump($type);
-        // $id = $type['id'];
-        // dump($id);die;
-        // dump($type);
         $goods = Goods::select();
-        // dump($goods);die;
         return view('default/index',['type'=>$type,'goods'=>$goods]);
     }
 
@@ -38,10 +33,16 @@ class IndexController extends Controller
      * @return \think\Response
      */
     public function goodslist()
-    {
+    {    
+        $search = [];
+        if(!empty($id)){
+            $select = Type::where('pid','=',$id)->column('id');
+            $select[] = (int)$id;
+            $search[] = ['type_id', 'in' ,$select];
+        }
         session_start();
         $type = Type::select();
-        $goods = Goods::select();
+        $goods = Goods::where($search)->select();
 
         return view('goods/goodslist',['type'=>$type,'goods'=>$goods]);
     }
