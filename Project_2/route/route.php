@@ -228,4 +228,9 @@ Route::group(['name'=>'/home/','prefix'=>'home/LoginController/'],function(){
 	Route::rule('register','register');
 	//注册时判断用户名是否已经存在
 	Route::rule('register_name','register_name');
+	//执行用户注册的方法
+	Route::rule('doreister','doreister');
 });
+
+//加载后台列表页
+Route::rule('/home/goodslist', 'home/IndexController/goodslist');

@@ -4,6 +4,11 @@ namespace app\home\controller;
 
 use think\Controller;
 use think\Request;
+use app\common\model\Type;
+use app\common\model\Goods;
+use app\tools\Cattree;
+
+
 
 class IndexController extends Controller
 {
@@ -15,7 +20,16 @@ class IndexController extends Controller
     public function index()
     {
         session_start();
-        return view('default/index');
+        $type = Type::select();
+        $c = new Cattree($type);
+        $type = $c ->getTree();
+        // dump($type);
+        // $id = $type['id'];
+        // dump($id);die;
+        // dump($type);
+        $goods = Goods::select();
+        // dump($goods);die;
+        return view('default/index',['type'=>$type,'goods'=>$goods]);
     }
 
     /**
@@ -23,9 +37,13 @@ class IndexController extends Controller
      *
      * @return \think\Response
      */
-    public function create()
+    public function goodslist()
     {
-        //
+        session_start();
+        $type = Type::select();
+        $goods = Goods::select();
+
+        return view('goods/goodslist',['type'=>$type,'goods'=>$goods]);
     }
 
     /**

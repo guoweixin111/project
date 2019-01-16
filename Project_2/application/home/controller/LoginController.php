@@ -89,12 +89,6 @@ class LoginController extends Controller
             return $this ->error('验证码错误！！','/home/register');
         }
         
-        // $name = $data['name'];
-        // $pwd = $request ->post('pwd','null','md5');
-        // $res =  User::where('name','=',$name)->where('pwd','=',$pwd)->find();
-        // if (empty($res)) {
-        //     return $this ->error('密码不正确！！','/home/register');
-        // }
         //判断密码是否为空
         if ($data['pwd'] == '') {
             return $this -> error('初始密码不能为空！！','/home/register');
@@ -119,8 +113,8 @@ class LoginController extends Controller
             //保存一个数据用来验证管理员是否登录
             session('loginHome',true);
             //保存登录的管理员信息
-            session('home',$res);
-            return $this -> redirect('添加用户'.$data['name'].'成功！','/home/index');
+            session('home',$data);
+            return $this -> redirect('/home/index');
             
     }
 
